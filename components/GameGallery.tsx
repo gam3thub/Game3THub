@@ -1,20 +1,36 @@
 const GameGallery = () => {
   const games = [
     {
-      name: "Game 1",
-      developer: "Developer 1",
-      genre: "Action",
-      chainLogo: "/chain-logo.png",
-      image: "/images/game1.jpg",
-      url: "https://example.com/play/game1", // URL for the "Play Now" button
+      name: "Space Nation",
+      developer: "Space Nation Team",
+      genre: "MMORPG",
+      chainLogo: "/images/eth.svg",
+      image: "/images/Space Nation.png",
+      url: "https://spacenation.online/", // URL for the "Play Now" button
     },
     {
-      name: "Game 2",
-      developer: "Developer 2",
+      name: "Heroes of Mavia",
+      developer: "Skrice Studios",
+      genre: "Casual",
+      chainLogo: "/images/eth.svg",
+      image: "/images/Heroes of Mavia.png",
+      url: "https://play.google.com/store/apps/details?id=com.skrice.mavia", // URL for the "Play Now" button
+    },
+    {
+      name: "World Shard",
+      developer: "LowKick Games",
       genre: "Adventure",
-      chainLogo: "/chain-logo.png",
-      image: "/images/game2.jpg",
-      url: "https://example.com/play/game2", // URL for the "Play Now" button
+      chainLogo: "/images/eth.svg",
+      image: "/images/worldshard.png",
+      url: "https://store.steampowered.com/app/2156390/WorldShards/", // URL for the "Play Now" button
+    },
+    {
+      name: "Final Salvation",
+      developer: "Ambrus Studio",
+      genre: "Strategy",
+      chainLogo: "/images/eth.svg",
+      image: "/images/Final Salvation.png",
+      url: "https://play.google.com/store/apps/details?id=com.ambrusstudio.e4c.finalsalvation", // URL for the "Play Now" button
     },
     // Add more games as needed
   ];
