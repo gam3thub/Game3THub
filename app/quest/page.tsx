@@ -1,18 +1,5 @@
-import Slider from '../../components/Slider';
-import GameGallery from '../../components/GameGallery';
-import BottomBar from '../../components/BottomBar';
+import QuestPage from "../../components/QuestPage";
 
-export default function QuestPage() {
-  return (
-    <main className="max-w-4xl mx-auto">
-      {
-        <Slider />
-      }
-      This is Quest
-      {
-        <GameGallery />
-      }
-      <BottomBar />
-    </main>
-  );
+export default function Quest() {
+  return <QuestPage />;
 }
