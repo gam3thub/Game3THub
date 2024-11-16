@@ -31,6 +31,37 @@ const GameGallery = () => {
       chainLogo: "/images/eth.svg",
       image: "/images/Final Salvation.png",
       url: "https://play.google.com/store/apps/details?id=com.ambrusstudio.e4c.finalsalvation", // URL for the "Play Now" button
+    },{
+      name: "Pixelverse",
+      developer: "PixelVerse",
+      genre: "Metaverse",
+      chainLogo: "/images/eth.svg",
+      image: "/images/pixelverse.png",
+      url: "https://play.pixelverse.xyz/", // URL for the "Play Now" button
+    },
+    {
+      name: "Revenge",
+      developer: "Everreach Labs",
+      genre: "Shooter",
+      chainLogo: "/images/eth.svg",
+      image: "/images/Revenge.png",
+      url: "https://store.steampowered.com/agecheck/app/2709500/", // URL for the "Play Now" button
+    },
+    {
+      name: "Oxya Origin",
+      developer: "Oxya Origin",
+      genre: "Battle Royale",
+      chainLogo: "/images/eth.svg",
+      image: "/images/Oxya Origin.png",
+      url: "https://www.oxyaorigin.com/", // URL for the "Play Now" button
+    },
+    {
+      name: "Wreck League",
+      developer: "nWay",
+      genre: "Fighting",
+      chainLogo: "/images/eth.svg",
+      image: "/images/Wreck League.png",
+      url: "https://wreckleague.xyz/", // URL for the "Play Now" button
     },
     // Add more games as needed
   ];

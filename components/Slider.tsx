@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 
 const Slider = () => {
   const slides = [
-    '/images/slider1.jpg',
-    '/images/slider2.jpg',
-    '/images/slider3.jpg',
-    '/images/slider4.jpg',
-    '/images/slider5.jpg',
+    '/images/wreckleague_banner.png',
+    '/images/oxyaorigin.png',
+    '/images/pixelverse_banner.png',
+    '/images/animalia.png',
+    '/images/evaverse.png',
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
