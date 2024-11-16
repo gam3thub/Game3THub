@@ -1,23 +1,49 @@
 "use client";
 
 import BottomBar from "../components/BottomBar";
+import { useDynamicContext, useUserWallets } from '@dynamic-labs/sdk-react-core';
+import { GetClaimableTokens, ClaimAirdrop } from '@/utils/SelfClaimAirdropContract';
 
 const ProfilePage = () => {
+  const { user, primaryWallet } = useDynamicContext();
+  const userWallets = useUserWallets();
+
   const quests = [
     { id: 1, name: "Quest 1", completed: true },
     { id: 2, name: "Quest 2", completed: true },
-    { id: 3, name: "Quest 3", completed: false },
+    { id: 3, name: "Quest 3", completed: true },
   ];
 
-  const walletAddress = "0x1234...abcd";
+  var walletAddress = "0x1B0f8FAE193873F453a7dE8e469468EDf8eedDBD";
+  if (userWallets && userWallets.length > 0)
+  {
+    walletAddress = userWallets[0].address;
+    for(var i = 0; i < userWallets.length; i++)
+    {
+      if (userWallets[i].chain == "Flow") 
+      {
+        walletAddress = userWallets[i].address;
+        break;
+      }
+    }
+  }
 
   // Function to determine if the Claim Rewards button should be enabled
   const isEligible = quests.every((quest) => quest.completed);
+  const walletAddressBeauty = walletAddress.substring(0, 8) + "...." + walletAddress.substring(walletAddress.length - 8, walletAddress.length-1);
 
-  const handleClaimRewards = () => {
+  const handleClaimRewards = async () => {
     if (isEligible) {
-      alert("Rewards / Airdrop successfully claimed!");
-      console.log("Claiming rewards...");
+      try {
+        //const result = await SendAirdrop([walletAddress], [5]);
+        const signer = primaryWallet ? await primaryWallet.signMessage("ClaimAirdrop") : null;
+        const result = await ClaimAirdrop(signer);
+        console.log("handleClaimRewards: ", result);
+        alert("Rewards / Airdrop successfully claimed! " + result);
+      } catch (error) {
+        console.error('Error calling contract:', error);
+        alert("Rewards / Airdrop ERROR: " + error);
+      }
     }
   };
 
@@ -31,8 +57,8 @@ const ProfilePage = () => {
             <span className="text-2xl">👤</span>
           </div>
           <div>
-            <h2 className="text-xl font-bold">ETHGlobal Bangkok</h2>
-            <p className="text-sm text-gray-400">Wallet: {walletAddress}</p>
+            <h2 className="text-xl font-bold"> {user && user.username ? user.username : "ETHGlobal Bangkok"}</h2>
+            <p className="text-sm text-gray-400">Wallet: {walletAddressBeauty}</p>
             <p
               className={`text-sm font-bold ${
                 isEligible ? "text-green-500" : "text-red-500"

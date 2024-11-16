@@ -4,9 +4,9 @@ import { useState } from "react";
 
 const QuestPage = () => {
   const [quests, setQuests] = useState([
-    { id: 1, name: "Quest 1", completed: false, link: "https://example.com/quest1" },
-    { id: 2, name: "Quest 2", completed: true, link: "https://example.com/quest2" },
-    { id: 3, name: "Quest 3", completed: false, link: "https://example.com/quest3" },
+    { id: 1, name: "Follow us on X", completed: false, link: "https://x.com/game3thub" },
+    { id: 2, name: "Follow Pixelverse on X", completed: false, link: "https://x.com/pixelverse_xyz" },
+    { id: 3, name: "Play Heroes of Mavia", completed: false, link: "https://play.google.com/store/apps/details?id=com.skrice.mavia" },
   ]);
 
   const [showPopup, setShowPopup] = useState(false); // Controls popup visibility
