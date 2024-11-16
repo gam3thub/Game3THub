@@ -2,20 +2,22 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { DynamicWidget, useIsLoggedIn } from "../app/lib/dynamic";
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Login state
+  //const [isLoggedIn, setIsLoggedIn] = useState(false); // Login state
+  const isLoggedIn = useIsLoggedIn();
 
   const handleLogin = () => {
     // Simulate login logic
     console.log("Login button clicked");
-    setIsLoggedIn(true); // Update state to logged in
+    //setIsLoggedIn(true); // Update state to logged in
   };
 
   const handleLogout = () => {
     // Simulate logout logic
     console.log("Logout button clicked");
-    setIsLoggedIn(false); // Update state to logged out
+    //setIsLoggedIn(false); // Update state to logged out
   };
 
   return (
@@ -54,12 +56,15 @@ const Header = () => {
             <span className="text-sm text-gray-400">Logout</span>
           </div>
         ) : (
+          <DynamicWidget />
+          /*
           <button
             onClick={handleLogin}
             className="bg-orange text-black font-bold px-4 py-2 rounded"
           >
             Login
           </button>
+          */
         )}
       </div>
     </header>
