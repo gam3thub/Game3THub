@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useIsLoggedIn, useDynamicContext } from "../app/lib/dynamic";
+import { GetUserDataByUsername, UpdateDoc } from '@/utils/firestore';
 
 const Header = () => {
-  //const [isLoggedIn, setIsLoggedIn] = useState(false); // Login state
-  const { setShowAuthFlow } = useDynamicContext();
-  const isLoggedIn = useIsLoggedIn();
+  const [isLoggedIn, setIsLoggedIn] = useState(useIsLoggedIn()); // Login state
+  const { setShowAuthFlow, user } = useDynamicContext();
 
   const handleLogin = () => {
     // Simulate login logic
@@ -20,6 +20,23 @@ const Header = () => {
     console.log("Logout button clicked");
     //setIsLoggedIn(false); // Update state to logged out
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await GetUserDataByUsername(user && user.userId ? user.userId : '');
+    }
+    fetchData();
+
+    if (isLoggedIn)
+    {
+      const userId = user && user.userId ? user.userId : '';
+      const username = user && user.username ? user.username : '';
+      UpdateDoc({
+        "userId": userId,
+        "username": username
+      });
+    }
+  }, []);
 
   return (
     <header className="bg-black/50 backdrop-blur-md max-w-4xl mx-auto flex justify-between items-center p-4 sticky top-0 z-50">

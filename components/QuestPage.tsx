@@ -1,13 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDynamicContext, useUserWallets } from '@dynamic-labs/sdk-react-core';
+import { GetUserDataByUsername as GetUserDataByUserId, GetUserData, UpdateQuest } from '@/utils/firestore';
+
+var questData = [
+  { id: 1, name: "Follow us on X", completed: false, hasSubmit: false, link: "https://x.com/game3thub", description: "Click GO to open the link, then follow us on twitter", questType: 1 },
+  { id: 2, name: "Follow Pixelverse on X", completed: false, hasSubmit: false, link: "https://x.com/pixelverse_xyz", description: "Click GO to open the link, then follow Pixelverse on twitter", questType: 1  },
+  { id: 3, name: "Play Heroes of Mavia", completed: false, hasSubmit: false, link: "https://play.google.com/store/apps/details?id=com.skrice.mavia", description: "Click GO to open the link, then download Heroes of Mavia, screenshot the gameplay", questType: 2  },
+];
 
 const QuestPage = () => {
-  const [quests, setQuests] = useState([
-    { id: 1, name: "Follow us on X", completed: false, link: "https://x.com/game3thub" },
-    { id: 2, name: "Follow Pixelverse on X", completed: false, link: "https://x.com/pixelverse_xyz" },
-    { id: 3, name: "Play Heroes of Mavia", completed: false, link: "https://play.google.com/store/apps/details?id=com.skrice.mavia" },
-  ]);
+  const [quests, setQuests] = useState(questData);
+  const { user, primaryWallet } = useDynamicContext();
 
   const [showPopup, setShowPopup] = useState(false); // Controls popup visibility
   const [selectedQuest, setSelectedQuest] = useState<number | null>(null); // Tracks selected quest
@@ -42,6 +47,27 @@ const QuestPage = () => {
     setShowPopup(false);
     setGoogleDriveLink(""); // Reset input field
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userId = user && user.userId ? user.userId : "";
+        const data = await GetUserDataByUserId(userId);
+        if (!data || !data.quests) 
+        {
+          await UpdateQuest(questData);
+        }
+        else 
+        {
+          setQuests(data.quests);
+        }
+      } catch (error) {
+        console.error("Error fetching Firestore data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -94,7 +120,7 @@ const QuestPage = () => {
               type="text"
               value={googleDriveLink}
               onChange={(e) => setGoogleDriveLink(e.target.value)}
-              placeholder="Enter your Google Drive link"
+              placeholder={selectedQuest && questData.find(c => c.id == selectedQuest)?.questType == 1 ? "Enter your Google Drive link (twitter screenshot)" : "Enter your Google Drive link (gameplay screenshot)" } 
               className="w-full bg-gray-100 text-black text-sm p-2 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-orange"
             />
             <div className="flex justify-end gap-2">
