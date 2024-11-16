@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { DynamicWidget, useIsLoggedIn } from "../app/lib/dynamic";
+import { useIsLoggedIn, useDynamicContext } from "../app/lib/dynamic";
 
 const Header = () => {
   //const [isLoggedIn, setIsLoggedIn] = useState(false); // Login state
+  const { setShowAuthFlow } = useDynamicContext();
   const isLoggedIn = useIsLoggedIn();
 
   const handleLogin = () => {
@@ -51,12 +52,23 @@ const Header = () => {
 
         {/* Conditional Rendering: Login or User Icon */}
         {isLoggedIn ? (
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => setShowAuthFlow(false)}>
+            <span className="text-white text-lg">👤</span>
+            <span className="text-sm text-gray-400">Logout</span>
+          </div>
+          /*
           <div className="flex items-center gap-2 cursor-pointer" onClick={handleLogout}>
             <span className="text-white text-lg">👤</span>
             <span className="text-sm text-gray-400">Logout</span>
           </div>
+          */
         ) : (
-          <DynamicWidget />
+          <button
+            onClick={() => setShowAuthFlow(true)}
+            className="bg-orange text-black font-bold px-4 py-2 rounded"
+          >
+            Login
+          </button>
           /*
           <button
             onClick={handleLogin}
