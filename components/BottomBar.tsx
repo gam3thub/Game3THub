@@ -8,7 +8,7 @@ const BottomBar = () => {
         <span className="text-2xl">🏠</span>
         <span className="text-xs">Home</span>
       </a>
-      <a href="#quest" className="text-white hover:text-orange flex flex-col items-center">
+      <a href="quest" className="text-white hover:text-orange flex flex-col items-center">
         {/* Quest Emoji */}
         <span className="text-2xl">🗺️</span>
         <span className="text-xs">Quest</span>
