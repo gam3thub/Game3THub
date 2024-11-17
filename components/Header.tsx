@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useIsLoggedIn, useDynamicContext } from "../app/lib/dynamic";
+import { useDynamicContext } from "../app/lib/dynamic";
 import { GetUserDataByUsername, UpdateDoc } from '@/utils/firestore';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(useIsLoggedIn()); // Login state
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Login state
   const { setShowAuthFlow, user } = useDynamicContext();
 
   const handleLogin = () => {
@@ -27,7 +27,7 @@ const Header = () => {
     }
     fetchData();
 
-    if (isLoggedIn)
+    if (user)
     {
       const userId = user && user.userId ? user.userId : '';
       const username = user && user.username ? user.username : '';
@@ -36,7 +36,7 @@ const Header = () => {
         "username": username
       });
     }
-  }, []);
+  }, [user != null]);
 
   return (
     <header className="bg-black/50 backdrop-blur-md max-w-4xl mx-auto flex justify-between items-center p-4 sticky top-0 z-50">
@@ -68,7 +68,7 @@ const Header = () => {
         </Link>
 
         {/* Conditional Rendering: Login or User Icon */}
-        {isLoggedIn ? (
+        {user ? (
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => setShowAuthFlow(false)}>
             <span className="text-white text-lg">👤</span>
             <span className="text-sm text-gray-400">Logout</span>

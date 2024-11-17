@@ -48,7 +48,7 @@ const QuestPage = () => {
     }
 
     try {
-      const response = await fetch("@/api/appendToSheet", {
+      const response = await fetch("api/appendToSheet", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

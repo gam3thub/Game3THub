@@ -1,37 +1,48 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import BottomBar from "../components/BottomBar";
 import { useDynamicContext, useUserWallets } from '@dynamic-labs/sdk-react-core';
 import { GetClaimableTokens, ClaimAirdrop } from '@/utils/SelfClaimAirdropContract';
 
+var questData = [
+  { id: 1, name: "Follow us on X", completed: true, hasSubmit: false, link: "https://x.com/game3thub", description: "Click GO to open the link, then follow us on twitter", questType: 1 },
+  { id: 2, name: "Follow Pixelverse on X", completed: true, hasSubmit: false, link: "https://x.com/pixelverse_xyz", description: "Click GO to open the link, then follow Pixelverse on twitter", questType: 1  },
+  { id: 3, name: "Play Heroes of Mavia", completed: true, hasSubmit: false, link: "https://play.google.com/store/apps/details?id=com.skrice.mavia", description: "Click GO to open the link, then download Heroes of Mavia, screenshot the gameplay", questType: 2  },
+];
+
 const ProfilePage = () => {
+  const [username, setUsername] = useState("ETHGlobal Bangkok");
+  const [walletAddress, setWalletAddress] = useState("0x1B0f8FAE193873F453a7dE8e469468EDf8eedDBD");
   const { user, primaryWallet } = useDynamicContext();
   const userWallets = useUserWallets();
 
-  const quests = [
-    { id: 1, name: "Quest 1", completed: true },
-    { id: 2, name: "Quest 2", completed: true },
-    { id: 3, name: "Quest 3", completed: true },
-  ];
-
-  var walletAddress = "0x1B0f8FAE193873F453a7dE8e469468EDf8eedDBD";
-  if (userWallets && userWallets.length > 0)
-  {
-    walletAddress = userWallets[0].address;
-    for(var i = 0; i < userWallets.length; i++)
+  useEffect(() => {
+    if (user)
     {
-      if (userWallets[i].chain == "Flow") 
+      const userId = user && user.userId ? user.userId : '';
+      const username = user && user.username ? user.username : userId;
+      setUsername(username);
+      
+      if (userWallets && userWallets.length > 0)
       {
-        walletAddress = userWallets[i].address;
-        break;
+        setWalletAddress(userWallets[0].address);
+        for(var i = 0; i < userWallets.length; i++)
+        {
+          if (userWallets[i].chain == "Flow") 
+          {
+            setWalletAddress(userWallets[i].address);
+            break;
+          }
+        }
       }
     }
-  }
+  }, [user != null]);
 
+  const quests = questData;
 
   // Function to determine if the Claim Rewards button should be enabled
   const isEligible = quests.every((quest) => quest.completed);
-  const walletAddressBeauty = walletAddress.substring(0, 8) + "...." + walletAddress.substring(walletAddress.length - 8, walletAddress.length-1);
 
   const handleClaimRewards = async () => {
     if (isEligible) {
@@ -58,8 +69,8 @@ const ProfilePage = () => {
             <span className="text-2xl">👤</span>
           </div>
           <div>
-            <h2 className="text-xl font-bold"> {user && user.username ? user.username : "ETHGlobal Bangkok"}</h2>
-            <p className="text-sm text-gray-400">Wallet: <a href={"https://evm-testnet.flowscan.io/address/" + walletAddress}> {walletAddressBeauty} </a> </p>
+            <h2 className="text-xl font-bold"> {username}</h2>
+            <p className="text-sm text-gray-400">Wallet: <a href={"https://evm-testnet.flowscan.io/address/" + walletAddress}> {walletAddress.substring(0, 8) + "...." + walletAddress.substring(walletAddress.length - 8, walletAddress.length-1)} </a> </p>
             <p
               className={`text-sm font-bold ${
                 isEligible ? "text-green-500" : "text-red-500"
