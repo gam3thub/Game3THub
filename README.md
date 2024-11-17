@@ -18,4 +18,10 @@ Test our demo in vercel here: https://gam3thub.vercel.app/
 2. Firebase credential is here: app/lib/firebase.js
 3. Google Sheet credential is here: utils/googlesheets.js
 
+## Other Note
+This project uses:
+1. ['Dynamic'](https://www.dynamic.xyz/)
+2. ['Flow'](https://developer.flow.com/)
+3. ['Blockscout'](https://docs.blockscout.com/)
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
