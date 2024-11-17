@@ -24,4 +24,8 @@ This project uses:
 2. ['Flow'](https://developer.flow.com/)
 3. ['Blockscout'](https://docs.blockscout.com/)
 
+## Team
+1. Nyoman Jaya Temara ["X"](https://x.com/keyserjaya)
+2. Orlando Nandito Nehemia ["X"](https://x.com/orlandonandito)
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
