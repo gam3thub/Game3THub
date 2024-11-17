@@ -1,3 +1,5 @@
+"Web3 Game Launcher for Web"
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 Test our demo in vercel here: https://gam3thub.vercel.app/
@@ -21,9 +23,11 @@ Test our demo in vercel here: https://gam3thub.vercel.app/
 ## Partners Bounty
 This project uses:
 1. ['Dynamic'](https://www.dynamic.xyz/)
+   - Used for auth system
 2. ['Flow'](https://developer.flow.com/)
+   - Used for airdrop. We are using SmartContract build on Solidity (via Remix) (EVM support)
 3. ['Blockscout'](https://docs.blockscout.com/)
-
+   - Used for exploring transaction in our wallet
 ## Team
 1. Nyoman Jaya Temara ["X"](https://x.com/keyserjaya)
 2. Orlando Nandito Nehemia ["X"](https://x.com/orlandonandito)
