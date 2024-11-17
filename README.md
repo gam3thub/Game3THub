@@ -18,7 +18,7 @@ Test our demo in vercel here: https://gam3thub.vercel.app/
 2. Firebase credential is here: app/lib/firebase.js
 3. Google Sheet credential is here: utils/googlesheets.js
 
-## Other Note
+## Partners Bounty
 This project uses:
 1. ['Dynamic'](https://www.dynamic.xyz/)
 2. ['Flow'](https://developer.flow.com/)
