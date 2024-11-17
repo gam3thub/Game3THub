@@ -28,6 +28,7 @@ const ProfilePage = () => {
     }
   }
 
+
   // Function to determine if the Claim Rewards button should be enabled
   const isEligible = quests.every((quest) => quest.completed);
   const walletAddressBeauty = walletAddress.substring(0, 8) + "...." + walletAddress.substring(walletAddress.length - 8, walletAddress.length-1);
@@ -58,7 +59,7 @@ const ProfilePage = () => {
           </div>
           <div>
             <h2 className="text-xl font-bold"> {user && user.username ? user.username : "ETHGlobal Bangkok"}</h2>
-            <p className="text-sm text-gray-400">Wallet: {walletAddressBeauty}</p>
+            <p className="text-sm text-gray-400">Wallet: <a href={"https://evm-testnet.flowscan.io/address/" + walletAddress}> {walletAddressBeauty} </a> </p>
             <p
               className={`text-sm font-bold ${
                 isEligible ? "text-green-500" : "text-red-500"

@@ -27,17 +27,62 @@ const QuestPage = () => {
     setShowPopup(true); // Show popup for quest check
   };
 
-  const handleSubmit = () => {
-    alert(
-      `You have submitted this quest! The admin will review and ensure you're eligible for the airdrop season.`
-    );
+  const userWallets = useUserWallets();
+  const handleSubmit = async () => {
+    const range = selectedQuest ? questData[selectedQuest].name + "!A1" : "Debug!A1";
+    const userId = user && user.userId ? user.userId : "";
+    const userName = user && user.username ? user.username : userId;
 
-    // Mark quest as completed
-    setQuests((prevQuests) =>
-      prevQuests.map((quest) =>
-        quest.id === selectedQuest ? { ...quest, completed: true } : quest
-      )
-    );
+    var walletAddress = "0x1B0f8FAE193873F453a7dE8e469468EDf8eedDBD";
+    if (userWallets && userWallets.length > 0)
+    {
+      walletAddress = userWallets[0].address;
+      for(var i = 0; i < userWallets.length; i++)
+      {
+        if (userWallets[i].chain == "Flow") 
+        {
+          walletAddress = userWallets[i].address;
+          break;
+        }
+      }
+    }
+
+    try {
+      const response = await fetch("@/api/appendToSheet", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          range: range, 
+          name: userName, 
+          walletAddress: walletAddress, 
+          url: googleDriveLink, 
+          verificationLink: "https://gam3thub.vercel.app/api/verify/?userId=" + userId 
+        }),
+      });
+
+      if (response.ok) {
+        alert(
+          `You have submitted this quest! The admin will review and ensure you're eligible for the airdrop season.`
+        );
+
+        // Mark quest as completed
+        setQuests((prevQuests) =>
+          quests.map((quest) =>
+            quest.id === selectedQuest ? { ...quest, hasSubmit: true } : quest
+          )
+        );
+
+        UpdateQuest(quests);
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ` + errorData);
+      }
+    } catch (error) {
+      alert(`Error: ` + error);
+      console.error(error);
+    }
 
     setShowPopup(false); // Close popup
     setGoogleDriveLink(""); // Reset input field
@@ -83,7 +128,7 @@ const QuestPage = () => {
 
             {/* Buttons */}
             <div className="flex gap-2">
-              {!quest.completed ? (
+              {!quest.hasSubmit ? (
                 <>
                   <button
                     onClick={() => handleGo(quest.link)}
@@ -99,7 +144,7 @@ const QuestPage = () => {
                   </button>
                 </>
               ) : (
-                <span className="text-green-500 font-bold">✅ Completed</span>
+                <span className="text-green-500 font-bold">✅ Submited</span>
               )}
             </div>
           </li>
